@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  authURL: 'https://filmapp-api.herokuapp.com/api/auth/'
 };
