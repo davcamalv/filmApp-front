@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NewUser } from '../models/new-user';
+import { NewUser } from '../models/user';
 import { Observable } from 'rxjs';
-import { UserLogin } from '../models/user-login';
-import { JwtDTO } from '../models/jwt-dto';
+import { UserLogin } from '../models/user';
+import { Jwt } from '../models/jwt';
 import { environment } from './../../environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -14,16 +14,16 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public new(newUser: NewUser): Observable<any> {
-    return this.httpClient.post<any>(this.authURL + 'new', newUser);
+  public new(newUser: NewUser): Observable<Jwt> {
+    return this.httpClient.post<Jwt>(this.authURL + 'new', newUser);
   }
 
-  public login(UserLogin: UserLogin): Observable<JwtDTO> {
-    return this.httpClient.post<JwtDTO>(this.authURL + 'login', UserLogin);
+  public login(UserLogin: UserLogin): Observable<Jwt> {
+    return this.httpClient.post<Jwt>(this.authURL + 'login', UserLogin);
   }
 
-  public refresh(dto: JwtDTO): Observable<JwtDTO> {
-    return this.httpClient.post<JwtDTO>(this.authURL + 'refresh', dto);
+  public refresh(dto: Jwt): Observable<Jwt> {
+    return this.httpClient.post<Jwt>(this.authURL + 'refresh', dto);
   }
 
 }

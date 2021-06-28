@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { NewUser } from '../models/new-user';
-import { ToastrService } from 'ngx-toastr';
+import { NewUser } from '../models/user';
+import {FormControl, Validators,AbstractControl } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-registration',
@@ -11,39 +12,95 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
 
-  newUser: NewUser = new NewUser('', '', '', '');
-  name: string = '';
-  username: string = '';
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  name = new FormControl('', { validators: [Validators.required] });
+  username = new FormControl('', { validators: [Validators.required] });
+  email = new FormControl('', { validators: [Validators.required, Validators.email] });
+  password = new FormControl('', { validators: [Validators.required] });
+  confirmPassword = new FormControl('', { validators: [Validators.required, this.samePasswordValidator(this.password)] });
+  disabled: boolean = false;
+  hide = true;
+  hideConfirmPass = true;
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
-  ) { }
+    private tokenService: TokenService,
+    public dialogRef: MatDialogRef<RegistrationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) { }
 
   ngOnInit() {
   }
 
-  onRegister(): void {
-    this.newUser = new  NewUser(this.name, this.username, this.email, this.password);
-    this.authService.new(this.newUser).subscribe(
-      data => {
-        this.toastr.success('Cuenta Creada', 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
+  cancel(): void {
+    this.dialogRef.close();
+  }
 
-        this.router.navigate(['/login']);
+  abled(): boolean{
+    if(this.disabled){
+      return true;
+    }else{
+      return !this.validForm();
+    }
+  }
+
+  validForm(): boolean{
+    let valid: boolean = true;
+    valid = valid && this.username.valid;
+    valid = valid && this.password.valid;
+    valid = valid && this.name.valid;
+    valid = valid && this.confirmPassword.valid;
+    valid = valid && this.email.valid;
+
+    return valid
+  }
+
+  samePasswordValidator(password: FormControl) {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      let res = control.value != password.value ? { 'notSamePassword': "La contraseña no coincide" } : null;
+      return res;
+    };
+  }
+
+  onRegister(): void {
+    this.disabled = true;
+    let newUser : NewUser = {name: this.name.value, username: this.username.value, email: this.email.value, password: this.password.value};
+    this.authService.new(newUser).subscribe(
+      data => {
+        this.tokenService.setToken(data.token);
+        this.dialogRef.close();
       },
       err => {
-        this.errorMessage = err.error.mensaje;
-        this.toastr.error(this.errorMessage, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
+        this.disabled = false;
+        if(err.error.message == "Username alredy exists"){
+          this.username.setErrors({usernameAlredyExists: true});
+        }else{
+          this.username.updateValueAndValidity();
+        }
       }
     );
   }
+
+  getErrorMessageUsername() : string{
+    return this.username.hasError('required')? "Debes introducir el nombre de usuario": this.username.hasError('usernameAlredyExists')? "El nombre de usuario introducido ya está en uso":"";
+  }
+
+  getErrorMessageEmail() : string{
+    return this.email.hasError('required')? "Debes introducir un email":
+    this.email.hasError('email') ? "El email no cumple con un formato correcto": '';
+  }
+
+  getErrorMessagePass(): string{
+    return this.password.hasError('required')? "Debes introducir una contraseña":"";
+  }
+
+  getErrorMessageName(): string{
+    return this.name.hasError('required')? "Debes introducir un nombre":"";
+  }
+
+  getErrorMessageConfirmPass():string {
+    return this.confirmPassword.hasError('required') ? "Debes confirmar la contraseña" :
+      this.confirmPassword.hasError('notSamePassword') ? "La contraseña no coincide":"";
+  }
+
 
 }

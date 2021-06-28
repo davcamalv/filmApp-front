@@ -1,31 +1,60 @@
-<app-menu></app-menu>
-
-<div class="container d-flex justify-content-center">
-  <div class="card">
-    <div class="card-body">
-      <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
-        <div class="form-group">
-          <label for="name">Nombre</label>
-          <input type="text" name="name" id="name" class="form-control" [(ngModel)]="name" required>
-        </div>
-        <div class="form-group">
-          <label for="username">Nombre de Usuario</label>
-          <input type="text" name="username" id="username" class="form-control" [(ngModel)]="username"
-            required>
-        </div>
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Correo Electrónico</label>
-          <input type="text" name="email" id="email" class="form-control" [(ngModel)]="email" required>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
-            <i class="fas fa-sign-in-alt"></i> Crear Cuenta</button>
-        </div>
-      </form>
+<h2 mat-dialog-title>Registro</h2>
+<div>
+  <div>
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Nombre</mat-label>
+        <input matInput [formControl]="name"/>
+        <mat-error *ngIf="name.invalid">{{ getErrorMessageName() }}</mat-error>
+      </mat-form-field>
     </div>
-  </div>
+
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Nombre de Usuario</mat-label>
+        <input matInput [formControl]="username"/>
+        <mat-error *ngIf="username.invalid">{{ getErrorMessageUsername() }}</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="email"/>
+        <mat-error *ngIf="email.invalid">{{ getErrorMessageEmail() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Contraseña</mat-label>
+        <input matInput (input)="confirmPassword.updateValueAndValidity()" [formControl]="password" [type]="hide? 'password' : 'text'"/>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid">{{ getErrorMessagePass() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Confirma la contraseña</mat-label>
+        <input matInput (input)="confirmPassword.updateValueAndValidity()" [formControl]="confirmPassword" [type]="hideConfirmPass? 'password' : 'text'"/>
+        <button mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="confirmPassword.invalid">{{ getErrorMessageConfirmPass() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div id="buttons-dialog">
+      <button id="cancel-dialog" mat-raised-button color="warn" (click)="cancel()">
+        Cancelar
+      </button>
+      <button id="save-dialog" mat-raised-button color="primary" (click)="onRegister()" [disabled]="abled()" cdkFocusInitial>
+        Confirmar
+      </button>
+    </div>
 </div>
+  

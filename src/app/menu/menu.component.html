@@ -22,8 +22,8 @@
 
       <div id="menu-horizontal-buttons-right">
         <div id="unlogged" *ngIf="!isLogged">
-          <button mat-button routerLink="/login" >Login</button>
-          <button mat-button routerLink="/new" >Registro</button>
+          <button mat-button (click)="openLogin()">Login</button>
+          <button mat-button (click)="openRegister()" >Registro</button>
         </div>
         <div id="logged" *ngIf="isLogged">
           <button mat-button (click)="onLogOut()" >Cerrar Sesión</button>

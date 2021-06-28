@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login.component';
-import { RegistrationComponent } from './auth/registration.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatGuardService } from './guards/chat-guard.service';
 import { IndexComponent } from './index/index.component';
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'new', component: RegistrationComponent}
+  {path: 'chat', component: ChatComponent, canActivate: [ChatGuardService], data: { expectedRol: ['admin', 'user'] }}
 ];
 
 @NgModule({

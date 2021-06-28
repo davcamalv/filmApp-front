@@ -1,5 +1,5 @@
 import { AuthService } from './../services/auth.service';
-import { JwtDTO } from './../models/jwt-dto';
+import { Jwt } from '../models/jwt';
 import { catchError, concatMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
@@ -38,7 +38,7 @@ export class ChatInterceptorService implements HttpInterceptor {
         if(tokenFromService == null){
           tokenFromService = '';
         }
-        const dto: JwtDTO = new JwtDTO(tokenFromService);
+        let dto: Jwt = {token: tokenFromService};
         return this.authService.refresh(dto).pipe(concatMap((data: any) => {
           console.log('refreshing....');
           this.tokenService.setToken(data.token);
