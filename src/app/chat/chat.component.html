@@ -1,0 +1,22 @@
+<app-menu></app-menu>
+
+<mat-card class="chat">
+    <mat-card-content id="chat-content" class="chat-content">
+        <div *ngFor="let message of conversation">
+            <div class="message">
+                <mat-card class="server-message" *ngIf="message.sender == 'server'">
+                    {{message.message}}
+                </mat-card>
+                <mat-card class="user-message" *ngIf="message.sender == 'user'">
+                    {{message.message}}
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="chat-actions">	
+            <mat-form-field>
+                <input matInput placeholder="Escríbeme..." name="text" (keyup.enter)="sendText(text)" [(ngModel)]="text">
+                <mat-icon matSuffix (click)="sendText(text)">send</mat-icon>
+            </mat-form-field>
+    </mat-card-actions>	
+</mat-card>

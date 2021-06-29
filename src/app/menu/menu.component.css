@@ -23,3 +23,12 @@ mat-sidenav-container {
     margin-right: 2%;
     float: right;
   }
+
+  #menu-horizontal-buttons-left{
+    display: flex;
+    align-items: center;
+    float: left;
+    width: 50%;
+    margin-left: 2%;
+    height: 100%;
+  }

@@ -1,0 +1,66 @@
+mat-icon:hover {
+    cursor: pointer;
+}
+
+.chat{
+    margin: auto;
+    width: 90%;
+    height: 88%;
+}
+
+.chat-content{
+    height: 90%;
+    overflow-y: auto;
+}
+
+.chat-actions mat-form-field{
+    width: 100%;
+}
+
+.message{
+    height:auto; 
+    overflow: hidden;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    text-align: justify;
+}
+
+.user-message{
+    float:right; 
+    width: fit-content; 
+    max-width: 70%;
+    margin: 3px;
+    margin-right: 10px;
+}
+
+.server-message{
+    float:left; 
+    background-color: #a58acf9f; 
+    width: fit-content; 
+    max-width: 70%;
+    margin: 3px;
+    margin-left: 10px;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #683ab7;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #563196;
+  }
