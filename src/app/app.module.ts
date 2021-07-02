@@ -44,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ChatComponent } from './chat/chat.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ChatComponent } from './chat/chat.component';
     RegistrationComponent,
     IndexComponent,
     MenuComponent,
-    ChatComponent
+    ChatComponent,
+    SafeHtmlPipe
   ],
   imports: [
     MatTabsModule,

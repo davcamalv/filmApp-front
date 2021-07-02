@@ -46,7 +46,9 @@ export class ChatInterceptorService implements HttpInterceptor {
           return next.handle(intReq);
         }));
       } else {
-        this.tokenService.logOut();
+        if(err.status === 500){
+          this.tokenService.logOut();
+        }
         return throwError(err);
       }
     }));
