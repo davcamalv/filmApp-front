@@ -56,10 +56,6 @@ export class ChatComponent implements OnInit {
         setTimeout(() => {this.scrollToBottom()}, 500);
       },
       err => {
-        if(err.error.message == "The functionality is not yet available"){
-          this.conversation.push({sender: "server", message: "<p style='margin: 0 0 0'>Disculpe, actualmente no tengo implementada esa funcionalidad</p>", specialKeyboard: false});
-          setTimeout(() => {this.scrollToBottom()}, 500);
-        } 
       }
     );
   }
