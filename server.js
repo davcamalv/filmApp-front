@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 const server = require('http').Server(app);
 
 const httpProxy = require('http-proxy');
 const apiProxy = httpProxy.createProxyServer();
 
-const dist_dir = "/../dist/filmapp-front";
+const dist_dir = "/../dist/filmApp-front";
 
 const back = "https://filmapp-api.herokuapp.com";
 const front = "https://filmapp-bot.herokuapp.com";
@@ -35,10 +35,10 @@ app.use((req, res, next)=>{
 
 app.get('', function(req, res) {
 
-    res.sendFile(path.join(__dirname + dist_dir+'/app.html'));
+    res.sendFile(path.join(__dirname + dist_dir+'/index.html'));
 });
 
 app.get('/', function(req, res) {
 
-    res.sendFile(path.join(__dirname + dist_dir+'/app.html'));
+    res.sendFile(path.join(__dirname + dist_dir+'/index.html'));
 });
