@@ -1,4 +1,4 @@
-import { Selectable } from "./Selectable";
+import { Selectable } from "./selectable";
 
 export interface Message {
     sender?: string;
