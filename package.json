@@ -7,11 +7,10 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration production --port $PORT --host 0.0.0.0 --disable-host-check",
-    "build": "ng build",
+    "start": "node server.js",
+    "build": "ng build --prod",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
