@@ -37,7 +37,6 @@ mat-icon:hover {
 
 .server-message{
     float:left; 
-    background-color: #a58acf9f; 
     width: fit-content; 
     max-width: 70%;
     margin: 3px;
@@ -45,22 +44,3 @@ mat-icon:hover {
 
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #683ab7;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #563196;
-  }

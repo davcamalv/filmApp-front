@@ -1,1 +1,55 @@
-<router-outlet></router-outlet>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FilmApp</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography mat-app-background">
+  <mat-drawer-container class="container">
+    <mat-drawer #drawer class="sidenav" id="drawer" mode="side">
+      <div id="logged" >
+        <div class="sidenav-row">
+          <div style="float: left;">
+            <mat-icon class="mr-8">brightness_5</mat-icon>
+            <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+            </mat-slide-toggle>
+            <mat-icon>bedtime</mat-icon>
+          </div>
+            <button mat-button style="float: right;" (click)="drawer.toggle()"><mat-icon>west</mat-icon></button>
+        </div>
+
+        <div class="sidenav-row">
+          <button mat-button class="sidenav-button-center">Perfil</button>
+        </div>
+        <div class="sidenav-row">
+          <button mat-button class="sidenav-button-center" (click)="onLogOut()" >Cerrar Sesión</button>
+        </div>
+      </div>
+    </mat-drawer>
+  
+  
+    <nav style="z-index: top;" class="navbar navbar-blue primaryColorBG" color="accent" id="menu-horizontal">
+      <div id="menu-horizontal-buttons-left" *ngIf="isLogged">
+        <button mat-button routerLink="/chat" ><mat-icon>chat</mat-icon></button>
+      </div>
+      
+      <div id="menu-horizontal-buttons-right">
+        <div id="unlogged" *ngIf="!isLogged">
+          <button mat-button (click)="openLogin()" >Login</button>
+          <button mat-button (click)="openRegister()" >Registro</button>
+        </div>
+        <div id="logged" *ngIf="isLogged">
+          <button type="button" mat-button (click)="drawer.toggle()">Menu</button>
+        </div>
+      </div>
+      
+    </nav>
+    <router-outlet></router-outlet>
+  </mat-drawer-container>
+  </body>
+  </html>
