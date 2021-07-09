@@ -1,0 +1,116 @@
+@use '~@angular/material' as mat;
+
+@include mat.core();
+@import '~@angular/material/theming';
+
+@mixin theme-color-grabber($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  
+  .warnColorBG {
+    background-color: mat-color($warn);
+    color: mat-contrast($warn, 500);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: mat-color($accent);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: mat-color($accent);
+  }
+
+  @if $theme == $dark-theme{
+
+    .primaryColorBG {
+      background-color: mat-color($primary);
+      color: mat-contrast($primary, 300);
+  
+    }
+
+    .accentColorBG {
+      background-color: mat-color($accent);
+      color: mat-contrast($accent, 900);
+  
+    }
+  
+    .user-message{
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
+    }
+  
+    .server-message{
+      background-color: mat-color($accent, 900)!important;
+      color: mat-contrast($accent, 900)!important;
+    }
+  }
+  @else{
+
+    .primaryColorBG {
+      background-color: mat-color($primary);
+      color: mat-contrast($primary, 900);
+  
+    }
+
+    .accentColorBG {
+      background-color: mat-color($accent);
+      color: mat-contrast($accent, 600);
+  
+    }
+
+    .user-message{
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
+    }
+  
+    .server-message{
+      background-color: mat-color($accent, 100)!important;
+      color: mat-contrast($accent, 100)!important;
+    }
+  }
+
+}
+
+html, body { 
+  height: 100%; 
+}
+body { 
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+$light-primary: mat.define-palette(mat.$red-palette, 900);
+$light-accent: mat.define-palette(mat.$amber-palette, 600);
+
+$light-theme: mat.define-light-theme((
+ color: (
+   primary: $light-primary,
+   accent: $light-accent,
+ )
+));
+
+$dark-primary: mat.define-palette(mat.$light-blue-palette, 200);
+$dark-accent: mat.define-palette(mat.$grey-palette, 900);
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: $dark-primary,
+   accent: $dark-accent,
+ )
+));
+
+
+@include mat.all-component-themes($light-theme);
+@include theme-color-grabber($light-theme);
+
+.darkMode {
+    @include theme-color-grabber($dark-theme);
+    @include mat.all-component-themes($dark-theme);
+}

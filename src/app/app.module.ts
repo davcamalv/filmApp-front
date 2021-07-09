@@ -2,7 +2,6 @@ import { RegistrationComponent } from './auth/registration.component';
 import { IndexComponent } from './index/index.component';
 import { ToastrModule } from 'ngx-toastr';
 import { interceptorProvider } from './interceptors/chat-interceptor.service';
-import { MenuComponent } from './menu/menu.component';
 import { AppComponent } from './app.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { HttpClientModule } from '@angular/common/http';
@@ -52,7 +51,6 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     LoginComponent,
     RegistrationComponent,
     IndexComponent,
-    MenuComponent,
     ChatComponent,
     SafeHtmlPipe
   ],
