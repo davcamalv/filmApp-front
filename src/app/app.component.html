@@ -27,7 +27,7 @@
           <button mat-button class="sidenav-button-center">Perfil</button>
         </div>
         <div class="sidenav-row">
-          <button mat-button class="sidenav-button-center" (click)="onLogOut()" >Cerrar Sesión</button>
+          <button mat-button class="sidenav-button-center" (click)="onLogOut(); drawer.toggle()" >Cerrar Sesión</button>
         </div>
       </div>
     </mat-drawer>
