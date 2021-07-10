@@ -43,7 +43,8 @@ ngOnInit() {
 
 onLogOut(): void {
   this.tokenService.logOut();
-  window.location.reload();
+  this.isLogged = this.tokenService.isLogged();
+  this.isAdmin = this.tokenService.isAdmin();
 }
 
 openLogin(): void {

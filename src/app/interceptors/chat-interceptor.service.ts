@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { TokenService } from '../services/token.service';
+import { Router } from '@angular/router';
 
 const AUTHORIZATION = 'Authorization';
 
@@ -14,6 +15,7 @@ const AUTHORIZATION = 'Authorization';
 export class ChatInterceptorService implements HttpInterceptor {
 
   constructor(
+    private router: Router,
     private tokenService: TokenService,
     private authService: AuthService
   ) { }
@@ -47,9 +49,9 @@ export class ChatInterceptorService implements HttpInterceptor {
         }));
       } else {
         if(err.status === 500){
-          this.tokenService.logOut();
-          window.location.reload();
-        }
+            this.tokenService.logOut();
+            this.router.navigate(['/']);
+          }
         return throwError(err);
       }
     }));
