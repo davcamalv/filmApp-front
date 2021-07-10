@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../models/message';
-import { Option } from '../models/Option';
-import { Selectable } from '../models/Selectable';
+import { Option } from '../models/option';
+import { Selectable } from '../models/selectable';
 import { ChatService } from '../services/chat.service';
 @Component({
   selector: 'app-chat',
