@@ -13,7 +13,7 @@
     </mat-card-content>
     <mat-card-actions class="chat-actions">	
             <mat-form-field *ngIf="specialKeyboard === false">
-                <input matInput placeholder="Escríbeme..." name="text" (keyup.enter)="sendText(text)" [(ngModel)]="text">
+                <input matInput autocomplete="off" placeholder="Escríbeme..." name="text" (keyup.enter)="sendText(text)" [(ngModel)]="text">
                 <mat-icon matSuffix (click)="sendText(text)">send</mat-icon>
             </mat-form-field>
             <mat-form-field *ngIf="specialKeyboard === true">
