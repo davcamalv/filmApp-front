@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Message } from '../models/message';
 import { Option } from '../models/option';
 import { Selectable } from '../models/selectable';
@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private messageService: MessageService,
-
+    private cdRef: ChangeDetectorRef
   ) { }
 
   text: string = "";
@@ -27,8 +27,7 @@ export class ChatComponent implements OnInit {
   refreshMessages = true;
 
   ngOnInit(): void {
-    this.updateMessages();
-    setTimeout(() => {this.scrollToBottom()}, 500);
+    this.updateMessages(this.scrollToBottom);
   }
 
   scrollToBottom(){
@@ -45,20 +44,20 @@ export class ChatComponent implements OnInit {
       if(chatContent != null){
         scrollHeight = chatContent.scrollHeight - chatContent.scrollTop;
       }
-      if(chatContent != null && chatContent.scrollTop == 0 && this.existsMessages == true){
+      if(chatContent != null && chatContent.scrollTop <= (chatContent.scrollHeight * 0.2) && this.existsMessages == true){
         this.refreshMessages = false;
-        this.updateMessages();
         chatContent = document.getElementById("chat-content");
-        setTimeout(() => {if(chatContent != null){
+        this.updateMessages(()=>{
+          if(chatContent != null){
           chatContent.scrollTop = chatContent.scrollHeight - scrollHeight;
           this.refreshMessages = true;
-        }}, 500);
-        
+        }
+      });
       }
     }
   }
 
-  updateMessages(){
+  updateMessages(callback?: Function){
     this.messageService.findMessagesByUser({pageNumber:this.pageNumber, pageSize:20}).subscribe(
       data => {
           if(data.length == 0){
@@ -68,6 +67,12 @@ export class ChatComponent implements OnInit {
           this.pageNumber = this.pageNumber + 1;
         },
       err => {
+      },
+      ()=>{
+        if(callback != undefined){
+          this.cdRef.detectChanges();
+          callback();
+        }
       }
     );
   }
@@ -91,14 +96,18 @@ export class ChatComponent implements OnInit {
     let message : Message = {sender: "user", message: text, specialKeyboard: false};
     this.text = "";
     this.conversation.push(message);
-    setTimeout(() => {this.scrollToBottom()}, 500);
+    this.cdRef.detectChanges();
+    this.scrollToBottom();
     this.chatService.sendMessage(message).subscribe(
       data => {
         this.conversation.push({sender: "server", message: data.message, specialKeyboard: data.specialKeyboard, selectable: data.selectable});
         this.changeInputType(data.specialKeyboard, data.selectable);
-        setTimeout(() => {this.scrollToBottom()}, 500);
       },
       err => {
+      },
+      () => {
+        this.cdRef.detectChanges();
+        this.scrollToBottom();
       }
     );
   }
