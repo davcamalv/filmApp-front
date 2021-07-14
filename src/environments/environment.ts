@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   authURL: 'http://localhost:8080/api/auth/',
-  conversationURL: 'http://localhost:8080/api/conversation/'
+  conversationURL: 'http://localhost:8080/api/conversation/',
+  messageURL: 'http://localhost:8080/api/message/'
 
 };
 

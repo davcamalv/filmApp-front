@@ -1,5 +1,5 @@
 <mat-card class="chat">
-    <mat-card-content id="chat-content" class="chat-content">
+    <mat-card-content id="chat-content" class="chat-content" (wheel)="scrollOnTop()">
         <div *ngFor="let message of conversation">
             <div class="message">
                 <mat-card class="server-message" *ngIf="message.sender == 'server'">

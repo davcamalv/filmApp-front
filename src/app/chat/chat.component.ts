@@ -3,6 +3,7 @@ import { Message } from '../models/message';
 import { Option } from '../models/option';
 import { Selectable } from '../models/selectable';
 import { ChatService } from '../services/chat.service';
+import { MessageService } from '../services/message.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -12,14 +13,22 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private messageService: MessageService,
+
   ) { }
 
   text: string = "";
   options: Option[] = [];
   specialKeyboard: boolean = false;
   selectableId: number = 0;
+  pageNumber: number = 0;
   conversation:Message[] = [];
+  existsMessages = true;
+  refreshMessages = true;
+
   ngOnInit(): void {
+    this.updateMessages();
+    setTimeout(() => {this.scrollToBottom()}, 500);
   }
 
   scrollToBottom(){
@@ -27,6 +36,40 @@ export class ChatComponent implements OnInit {
     if(chatContent != null){
       chatContent.scrollTop = chatContent.scrollHeight;
     }
+  }
+
+  scrollOnTop(){
+    if(this.refreshMessages == true){
+      let chatContent = document.getElementById("chat-content");
+      let scrollHeight = 0;
+      if(chatContent != null){
+        scrollHeight = chatContent.scrollHeight - chatContent.scrollTop;
+      }
+      if(chatContent != null && chatContent.scrollTop == 0 && this.existsMessages == true){
+        this.refreshMessages = false;
+        this.updateMessages();
+        chatContent = document.getElementById("chat-content");
+        setTimeout(() => {if(chatContent != null){
+          chatContent.scrollTop = chatContent.scrollHeight - scrollHeight;
+          this.refreshMessages = true;
+        }}, 500);
+        
+      }
+    }
+  }
+
+  updateMessages(){
+    this.messageService.findMessagesByUser({pageNumber:this.pageNumber, pageSize:20}).subscribe(
+      data => {
+          if(data.length == 0){
+            this.existsMessages = false;
+          }
+          this.conversation = data.concat(this.conversation);
+          this.pageNumber = this.pageNumber + 1;
+        },
+      err => {
+      }
+    );
   }
 
   changeInputType(keyboard: boolean, selectable: Selectable | undefined){
