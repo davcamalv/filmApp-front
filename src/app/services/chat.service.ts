@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NewUser } from '../models/user';
 import { Observable } from 'rxjs';
-import { UserLogin } from '../models/user';
-import { Jwt } from '../models/jwt';
 import { environment } from '../../environments/environment';
 import { Message } from '../models/message';
 
