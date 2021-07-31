@@ -1,0 +1,28 @@
+<mat-card class="chat">
+    <mat-card-content id="chat-content" class="chat-content" (scroll)="scrollOnTop()">
+        <div *ngFor="let message of conversation">
+            <div class="message">
+                <mat-card class="server-message" *ngIf="message.sender == 'server'">
+                    <div [innerHtml]="message.message | safeHtml:'html'"></div>
+                </mat-card>
+                <mat-card class="user-message" *ngIf="message.sender == 'user'">
+                    {{message.message}}
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="chat-actions">	
+            <mat-form-field *ngIf="specialKeyboard === false">
+                <input matInput autocomplete="off" placeholder="Escríbeme..." name="text" (keyup.enter)="sendText(text)" [(ngModel)]="text">
+                <mat-icon matSuffix (click)="sendText(text)">send</mat-icon>
+            </mat-form-field>
+            <mat-form-field *ngIf="specialKeyboard === true">
+                <mat-label>Selecciona una opción</mat-label>
+                <mat-select (selectionChange)="sendText($event.value)">
+                    <mat-option *ngFor="let option of options" [value]="option.text">
+                      {{option.label}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    </mat-card-actions>	
+</mat-card>
