@@ -84,7 +84,7 @@ export class ChatComponent implements OnInit {
       this.selectableId = selectable.id;
       for (let index = 0; index < selectable.options.length; index++) {
         let option = selectable.options[index];
-        this.options.push({label: option.label, text: option.text});
+        this.options.push({label: option.label, text: option.text, image: option.image});
       }
     }else{
       this.specialKeyboard = false;
