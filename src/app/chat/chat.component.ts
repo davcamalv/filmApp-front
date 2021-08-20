@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Message } from '../models/message';
 import { Option } from '../models/option';
 import { Selectable } from '../models/selectable';
@@ -7,7 +7,8 @@ import { MessageService } from '../services/message.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ChatComponent implements OnInit {
 
@@ -111,5 +112,4 @@ export class ChatComponent implements OnInit {
       }
     );
   }
-
 }
