@@ -20,7 +20,8 @@
                 <mat-label>Selecciona una opción</mat-label>
                 <mat-select (selectionChange)="sendText($event.value)">
                     <mat-option *ngFor="let option of options" [value]="option.text">
-                      {{option.label}}
+                        <img class="option-img" aria-hidden [src]="option.image" height="30">
+                        <span>{{option.label}}</span>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
