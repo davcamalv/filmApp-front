@@ -78,3 +78,29 @@ mat-icon:hover {
     width: 100%; 
   }
 
+  .person {
+    border-radius: 5% !important;
+    float: left !important;
+    position: relative;
+    text-align:center !important; 
+    margin: 1% !important;
+    width: 23%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .person > img{
+    width: 80%;
+    display: block;
+    margin: auto;
+    border-radius: 5%;
+  }
+
+
+  .person-list {
+    margin-top: 2%;
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+  }
+
