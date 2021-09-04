@@ -78,3 +78,50 @@ mat-icon:hover {
     width: 100%; 
   }
 
+  .person {
+    border-radius: 5% !important;
+    float: left !important;
+    position: relative;
+    text-align:center !important; 
+    margin: 1% !important;
+    width: 23%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .person > img{
+    width: 80%;
+    display: block;
+    margin: auto;
+    border-radius: 5%;
+  }
+
+
+  .person-list {
+    margin-top: 2%;
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+  }
+
+  .person-profile {
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+  }
+
+  .person-profile > img {
+    margin: 2%;
+    width: 21%;
+    display: block;
+    border-radius: 5%;
+  }
+
+  .person-profile > div {
+    margin: 2%;
+    width: 71%;
+  }
+  .person-profile > div >  h1 {
+    text-align:center !important; 
+    font-weight: bold;
+  }
