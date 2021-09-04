@@ -104,3 +104,24 @@ mat-icon:hover {
     width: 100%; 
   }
 
+  .person-profile {
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+  }
+
+  .person-profile > img {
+    margin: 2%;
+    width: 21%;
+    display: block;
+    border-radius: 5%;
+  }
+
+  .person-profile > div {
+    margin: 2%;
+    width: 71%;
+  }
+  .person-profile > div >  h1 {
+    text-align:center !important; 
+    font-weight: bold;
+  }
