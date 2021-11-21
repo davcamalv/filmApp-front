@@ -44,6 +44,7 @@ import { LoginComponent } from './auth/login.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ChatComponent } from './chat/chat.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     RegistrationComponent,
     IndexComponent,
     ChatComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ProfileComponent
   ],
   imports: [
     MatTabsModule,

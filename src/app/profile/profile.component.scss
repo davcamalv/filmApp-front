@@ -1,0 +1,118 @@
+.profile{
+    margin: auto;
+    width: 90%;
+    height: 93%;
+}
+
+.avatar{
+    display: flex;
+    flex-direction: column;
+    text-align:center !important; 
+}
+.avatar > img{
+    display: block;
+    margin: auto;
+    border-radius: 5%;
+    max-height: 200px;
+}
+
+.left-profile{
+    width: 22%;
+    float: left;
+}
+
+.details > p{
+    text-align:center !important; 
+}
+
+.right-profile{
+    height: 93%;
+    width: 70%;
+    float: right;
+}
+
+.content-mapping > p{
+    margin: auto!important;
+    padding:5% !important;
+  }
+
+.content-mapping {
+    border-radius: 5% !important;
+    float: left !important;
+    position: relative;
+    text-align:center !important; 
+    margin: 1% !important;
+    width: 30.7%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.content-mapping-list {
+    margin-top: 2%;
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+}
+
+.to-watch-list {
+    height: 50%;
+}
+.scrollable {
+    height: 80%;
+    overflow-y: auto;
+}
+
+.to-watch-img {
+    position: relative;
+    float: left !important;
+    display:block;
+    margin: 1%;
+    width: 18%;
+    height: 95%;
+}
+.to-watch-img > img {
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    opacity: 1;
+}
+
+.to-watch-img:hover .image {
+    opacity: 0.3;
+  }
+  
+.to-watch-img:hover .overlay-img {
+    opacity: 1;
+}
+
+.reviews {
+    height: 50%;
+}
+
+.overlay-img {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+
+  .overlay-img > h2{
+    font-weight: bold;
+    width: 100%;
+    float: left;
+    margin: auto;
+  }
+
+  .overlay-img > h4{
+    font-weight: bold;
+    width: 100%;
+    float: left;
+    margin: auto;
+  }
