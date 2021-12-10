@@ -2,6 +2,7 @@
 
 @include mat.core();
 @import '~@angular/material/theming';
+@import '~ngx-toastr/toastr.css';
 
 @mixin theme-color-grabber($theme) {
   $primary: map-get($theme, primary);
@@ -29,12 +30,26 @@
     background: mat-color($accent);
   }
 
+  .toast-error {
+    background-color: mat-color($warn)!important;
+  }
+
+  .toast-warning {
+    background-color: mat-color($accent)!important;
+  }
+
   @if $theme == $dark-theme{
 
     .primaryColorBG {
       background-color: mat-color($primary);
       color: mat-contrast($primary, 300);
   
+    }
+
+    .toast-success {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
+
     }
 
     .accentColorBG {

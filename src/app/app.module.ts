@@ -54,7 +54,7 @@ import { ProfileComponent } from './profile/profile.component';
     IndexComponent,
     ChatComponent,
     SafeHtmlPipe,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     MatTabsModule,

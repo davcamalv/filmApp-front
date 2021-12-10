@@ -17,4 +17,8 @@ export class MediaContentService {
   public findMediaContentByUser(PaginationDTO: PaginationDTO): Observable<MediaContent[]> {
     return this.httpClient.post<MediaContent[]>(this.mediaContentURL + 'findByUser', PaginationDTO);
   }
+
+  public deleteElementMediaContentList(id: Number): Observable<void> {
+    return this.httpClient.post<void>(this.mediaContentURL + 'deleteElementMediaContentList', id);
+  }
 }

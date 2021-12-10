@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Message } from '../models/message';
 import { UserProfile } from '../models/user';
 
 @Injectable({
@@ -16,5 +15,9 @@ export class UserService {
 
   public getProfile(): Observable<UserProfile> {
     return this.httpClient.get<UserProfile>(this.userURL + 'getProfile');
+  }
+
+  public addGenresToPrincipal(ids: number[]): Observable<UserProfile> {
+    return this.httpClient.post<UserProfile>(this.userURL + 'addGenresToPrincipal', ids);
   }
 }

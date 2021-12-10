@@ -8,7 +8,8 @@ export const environment = {
   conversationURL: 'http://localhost:8080/api/conversation/',
   messageURL: 'http://localhost:8080/api/message/',
   mediaContentURL: 'http://localhost:8080/api/mediaContent/',
-  userURL: 'http://localhost:8080/api/user/'
+  userURL: 'http://localhost:8080/api/user/',
+  genreURL: 'http://localhost:8080/api/genre/'
 
 };
 
