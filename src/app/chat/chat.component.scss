@@ -67,6 +67,7 @@ mat-icon:hover {
     text-align:center !important; 
     margin: 1% !important;
     width: 23%;
+    min-height: 50px;
     display: flex;
     align-items: center;
   }
@@ -109,9 +110,10 @@ mat-icon:hover {
     flex-wrap: wrap;
     width: 100%; 
   }
-
+  
   .person-profile > img {
     margin: 2%;
+    align-self: center;
     width: 21%;
     display: block;
     border-radius: 5%;
