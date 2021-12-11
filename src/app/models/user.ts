@@ -22,3 +22,9 @@ export interface UserProfile {
   birthDate?: string;
   genres: Genre[];
 }
+
+export interface ProfileDetails {
+  name: string;
+  email: string;
+  birthDate?: Date;
+}

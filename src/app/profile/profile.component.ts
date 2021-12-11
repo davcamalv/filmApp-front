@@ -5,6 +5,10 @@ import { MediaContentService } from '../services/mediaContent.service';
 import { UserService } from '../services/user.service';
 import { GenreService } from '../services/genre.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { AvatarComponent } from './avatar.component';
+import {FormControl, Validators,AbstractControl } from '@angular/forms';
+import { ProfileDetails } from '../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +21,8 @@ export class ProfileComponent implements OnInit {
     private mediaContentService: MediaContentService,
     private userService: UserService,
     private genreService: GenreService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) { 
     toastr.toastrConfig.positionClass = "toast-bottom-right";
   }
@@ -32,9 +37,17 @@ export class ProfileComponent implements OnInit {
   mediaContentPageNumber: number = 0;
   existsMediaContent = true;
   genreButton = false;
+  detailsButton = false;
+
   selectedGenres: number[] = [];
   fullGenreList: Genre[] = [];
   refreshMediaContent: boolean = true;
+
+  nameFormControl = new FormControl('', { validators: [Validators.required] });
+  emailFormControl = new FormControl('', { validators: [Validators.required, Validators.email] });
+  birthDateFormControl = new FormControl('', { validators: [this.birthDateValidation()] });
+
+  disabledDetailsSaveButton: boolean = false;
 
   ngOnInit(): void {
     this.updateMediaContent();
@@ -126,5 +139,69 @@ export class ProfileComponent implements OnInit {
         this.toastr.error('Ha ocurrido un error al eliminar "' + mediaContent.title + '"');
       }
     );
+  }
+
+  openAvatarDialog(): void {
+    if(this.dialog.openDialogs.length==0){
+      let dialog = this.dialog.open(AvatarComponent, {
+        width: '70%',
+      });
+      dialog.afterClosed().subscribe(()=>{
+        this.getProfile();
+      });
+    };
+  }
+
+  abledDetailsSaveButton(): boolean{
+    let valid: boolean = true;
+    valid = valid && this.nameFormControl.valid;
+    valid = valid && this.birthDateFormControl.valid;
+    valid = valid && this.emailFormControl.valid;
+    return !valid;
+  }
+
+  saveDetails(): void {
+    let profileDetails: ProfileDetails = {name: this.nameFormControl.value, email: this.emailFormControl.value, birthDate: this.birthDateFormControl.value};
+    this.userService.saveDetails(profileDetails).subscribe(
+      data => {
+        if(data.email != undefined){
+          this.email = data.email;
+        }else {
+          this.email = "-";
+        }
+        this.name = data.name;
+        if(data.birthDate != undefined){
+          this.birthDate = data.birthDate;
+        }else {
+          this.birthDate = "-";
+        }
+        this.detailsButton =  false;
+        this.toastr.success('Se han guardado correctamente los datos del perfil');
+      },
+      err => {
+        this.toastr.error('Ha ocurrido un error al guardar los datos del perfil');
+      }
+    );
+  }
+
+  birthDateValidation() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      var actual = new Date();
+      let res = control.value > actual ? { 'badBirthDateValidation': "La fecha de nacimiento debe ser anterior a la actual" } : null;
+      return res;
+    };
+  }
+
+  getErrorMessageEmail() : string{
+    return this.emailFormControl.hasError('required')? "Debes introducir un email":
+    this.emailFormControl.hasError('email') ? "El email no cumple con un formato correcto": '';
+  }
+
+  getErrorMessageName(): string{
+    return this.nameFormControl.hasError('required')? "Debes introducir un nombre":"";
+  }
+
+  getErrorMessageBirthDate():string {
+    return this.birthDateFormControl.hasError('badBirthDateValidation') ? "La fecha de nacimiento debe ser anterior a la actual":"";
   }
 }

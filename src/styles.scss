@@ -14,6 +14,10 @@
     color: mat-contrast($warn, 500);
   }
 
+  .avatar-selected {
+    outline: 2px solid mat-color($accent) !important;
+  }
+
   ::-webkit-scrollbar {
     width: 5px;
   }

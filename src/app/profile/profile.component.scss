@@ -21,7 +21,7 @@
     float: left;
 }
 
-.details > p{
+.details > div > p{
     text-align:center !important; 
 }
 
@@ -191,4 +191,16 @@
 
 #save-genre {
     float: right;
+}
+
+#cancel-details {
+    float: left;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+#save-details {
+    float: right;
+    margin-top: 2%;
+    margin-bottom: 4%;
 }

@@ -4,7 +4,7 @@
             <div class="avatar-img">
                 <img class="image" [src]="avatar">
                 <div class="overlay-avatar-img">
-                    <button mat-icon-button>
+                    <button mat-icon-button (click)="openAvatarDialog()">
                         <mat-icon>create</mat-icon>
                     </button>
                 </div>
@@ -16,13 +16,46 @@
             <div class="details">
                 <div class="left-profile-section">
                     <h3><strong>Detalles</strong></h3>
-                    <button mat-icon-button>
+                    <button mat-icon-button *ngIf="!detailsButton" (click)="detailsButton = !detailsButton">
                         <mat-icon>create</mat-icon>
                     </button>
                 </div>
-                <p>{{email}}</p>
-                <p>{{name}}</p>
-                <p>{{birthDate}}</p>
+                <div *ngIf="!detailsButton">
+                    <p>{{email}}</p>
+                    <p>{{name}}</p>
+                    <p>{{birthDate}}</p>
+                </div>
+                <div *ngIf="detailsButton">
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput [formControl]="nameFormControl"/>
+                            <mat-error *ngIf="nameFormControl.invalid">{{ getErrorMessageName() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                          <mat-label>Email</mat-label>
+                          <input matInput [formControl]="emailFormControl"/>
+                          <mat-error *ngIf="emailFormControl.invalid">{{ getErrorMessageEmail() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                          <mat-label>Fecha de nacimiento</mat-label>
+                          <input matInput [matDatepicker]="picker" [formControl]="birthDateFormControl">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="birthDateFormControl.invalid">{{ getErrorMessageBirthDate() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <button id="cancel-details" mat-raised-button color="warn" (click)="detailsButton = !detailsButton">
+                        Cancelar
+                    </button>
+                    <button id="save-details" mat-raised-button color="primary" [disabled]="abledDetailsSaveButton()" (click)="saveDetails()">
+                        Guardar
+                    </button>
+                </div>
             </div>
             <br>
             <div class="left-profile-section">

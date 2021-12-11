@@ -1,0 +1,34 @@
+#cancel-dialog {
+  float: left;
+  margin-left: 1%;
+}
+  
+  #save-dialog {
+    float: right;
+    margin-right: 1%;
+  }
+  
+  #buttons-dialog {
+    justify-content: center;
+    margin-top: 5%;
+  }
+
+  .avatars-div {
+    display: flex;
+		flex-flow: row wrap;
+    justify-content: center;
+		row-gap: 15px!important;
+    column-gap: 15px!important;
+
+  }
+  .avatar-button {
+    border-radius: 5% !important;
+  }
+
+  .image {
+    height:17em;
+  }
+
+
+
+  

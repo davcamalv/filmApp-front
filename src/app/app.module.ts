@@ -45,6 +45,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ChatComponent } from './chat/chat.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { ProfileComponent } from './profile/profile.component';
+import { AvatarComponent } from './profile/avatar.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ProfileComponent } from './profile/profile.component';
     ChatComponent,
     SafeHtmlPipe,
     ProfileComponent,
+    AvatarComponent
   ],
   imports: [
     MatTabsModule,
