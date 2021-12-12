@@ -127,3 +127,28 @@ mat-icon:hover {
     text-align:center !important; 
     font-weight: bold;
   }
+  .my-list-element {
+    border-radius: 5% !important;
+    float: left !important;
+    position: relative;
+    text-align:center !important; 
+    margin: 1% !important;
+    width: 23%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .my-list-element > img{
+    width: 80%;
+    display: block;
+    margin: auto;
+    border-radius: 5%;
+  }
+
+
+  .my-list {
+    margin-top: 2%;
+    display:flex;
+    flex-wrap: wrap;
+    width: 100%; 
+  }
