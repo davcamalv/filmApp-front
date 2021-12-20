@@ -29,14 +29,14 @@ workflows:
   sample:
     jobs:
       - sonar:
-          context: SonarCloud
+          context: SonarCloud-front
           filters:
             branches:
               only: 
               - develop
               - master
       - check_sonar_quality_gate:
-          context: SonarCloud
+          context: SonarCloud-front
           requires:
               - sonar
           filters:
