@@ -12,11 +12,9 @@ jobs:
       - sonarcloud/scan
   check_sonar_quality_gate:
     docker:
-      - image: 'node:latest'
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
-      - apt-get update 
-      - apt-get -y install jq
       - run:
           name: Checking Sonar quality gate (develop and master)
           command: |
