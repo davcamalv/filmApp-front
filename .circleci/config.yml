@@ -9,6 +9,9 @@ jobs:
       - image: 'node:latest'
     steps:
       - checkout
+       - run:
+          name: add projectKey
+          command: sonar.projectKey=davcamalv_filmApp-front
       - sonarcloud/scan
   check_sonar_quality_gate:
     docker:
