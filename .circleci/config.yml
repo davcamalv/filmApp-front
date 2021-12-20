@@ -2,12 +2,54 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.2
-
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+jobs:
+  sonar:
+    docker:
+      - image: 'node:latest'
+    steps:
+      - checkout
+      - sonarcloud/scan
+  check_sonar_quality_gate:
+    docker:
+      - image: 'node:latest'
+    steps:
+      - checkout
+      - run:
+          name: Checking Sonar quality gate (develop and master)
+          command: |
+            SONAR_PROJECT_STATUS=$(curl -s -X GET "https://sonarcloud.io/api/qualitygates/project_status?projectKey=davcamalv_filmApp-front&branch=develop" | jq ".projectStatus.status")
+            if [[ $SONAR_PROJECT_STATUS != "\"OK\"" ]]
+            then
+              echo -e "ERROR: SONAR QUALITY GATE NOT PASSED. STATUS "$SONAR_PROJECT_STATUS
+              false
+            else echo -e "SONAR QUALITY GATE PASSED. STATUS "$SONAR_PROJECT_STATUS
+            fi
 workflows:
   sample:
     jobs:
-      - heroku/deploy-via-git:
-          force: true 
+      - sonar:
+          context: SonarCloud
           filters:
             branches:
-              only: develop
+              only: 
+              - develop
+              - master
+      - check_sonar_quality_gate:
+          context: SonarCloud
+          requires:
+              - sonar
+          filters:
+            branches:
+              only: 
+              - develop
+              - master
+      - heroku/deploy-via-git:
+          force: true 
+          requires:
+            - check_sonar_quality_gate
+          filters:
+            branches:
+              only: 
+              - develop
+              - master
