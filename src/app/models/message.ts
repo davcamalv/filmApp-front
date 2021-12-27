@@ -5,4 +5,5 @@ export interface Message {
     message: string;
     specialKeyboard: boolean;
     selectable?: Selectable;
+    fullWidth: boolean;
   }

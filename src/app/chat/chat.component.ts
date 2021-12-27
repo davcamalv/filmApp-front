@@ -94,14 +94,14 @@ export class ChatComponent implements OnInit {
 
   sendText(text: string): void {
     this.specialKeyboard = false;
-    let message : Message = {sender: "user", message: text, specialKeyboard: false};
+    let message : Message = {sender: "user", message: text, specialKeyboard: false, fullWidth: false};
     this.text = "";
     this.conversation.push(message);
     this.cdRef.detectChanges();
     this.scrollToBottom();
     this.chatService.sendMessage(message).subscribe(
       data => {
-        this.conversation.push({sender: "server", message: data.message, specialKeyboard: data.specialKeyboard, selectable: data.selectable});
+        this.conversation.push({sender: "server", message: data.message, specialKeyboard: data.specialKeyboard, selectable: data.selectable, fullWidth: data.fullWidth});
         this.changeInputType(data.specialKeyboard, data.selectable);
       },
       err => {
