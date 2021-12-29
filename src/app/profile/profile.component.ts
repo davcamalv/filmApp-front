@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AvatarComponent } from './avatar.component';
 import {FormControl, Validators,AbstractControl } from '@angular/forms';
 import { ProfileDetails } from '../models/user';
+import { ReviewService } from '../services/review.service';
+import { ReviewProfileDTO } from '../models/review';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private mediaContentService: MediaContentService,
+    private reviewService: ReviewService,
     private userService: UserService,
     private genreService: GenreService,
     private toastr: ToastrService,
@@ -34,14 +37,17 @@ export class ProfileComponent implements OnInit {
   birthDate: string = "-";
   genres: Genre[] = [];
   watchList: MediaContent[] = [];
+  reviewList: ReviewProfileDTO[] = [];
   mediaContentPageNumber: number = 0;
+  reviewPageNumber: number = 0;
   existsMediaContent = true;
+  existsReview = true;
   genreButton = false;
   detailsButton = false;
-
   selectedGenres: number[] = [];
   fullGenreList: Genre[] = [];
   refreshMediaContent: boolean = true;
+  refreshReview: boolean = true;
 
   nameFormControl = new FormControl('', { validators: [Validators.required] });
   emailFormControl = new FormControl('', { validators: [Validators.required, Validators.email] });
@@ -51,6 +57,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateMediaContent();
+    this.updateReviews();
     this.getAllGenres();
     this.getProfile();
   }
@@ -78,11 +85,35 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  updateReviews(): void {
+    this.reviewService.findByUser({pageNumber:this.reviewPageNumber, pageSize:10}).subscribe(
+      data => {
+        this.refreshReview = true;
+          if(data.length == 0){
+            this.existsReview = false;
+          }
+          this.reviewList = this.reviewList.concat(data);
+          this.reviewPageNumber = this.reviewPageNumber + 1;
+        },
+      err => {
+        this.refreshReview = true;
+      }
+    );
+  }
+
   scrollMediaContentOnBottom(){
     let toWatchList = document.getElementById("to-watch-list-scrollable");
     if(toWatchList != null && this.refreshMediaContent && toWatchList.scrollTop >= (toWatchList.scrollHeight * (1 - (1 / (this.watchList.length / 5)))) && this.existsMediaContent == true){
       this.refreshMediaContent = false;
       this.updateMediaContent();
+    }
+  }
+
+  scrollReviewsOnBottom(){
+    let reviewList = document.getElementById("review-list-scrollable");
+    if(reviewList != null && this.refreshReview && reviewList.scrollTop >= (reviewList.scrollHeight * (1 - (1 / (this.reviewList.length / 5)))) && this.existsReview == true){
+      this.refreshReview = false;
+      this.updateReviews();
     }
   }
   getProfile(): void {
@@ -137,6 +168,18 @@ export class ProfileComponent implements OnInit {
       },
       err => {
         this.toastr.error('Ha ocurrido un error al eliminar "' + mediaContent.title + '"');
+      }
+    );
+  }
+
+  deleteReview(review: ReviewProfileDTO){
+    this.reviewService.deleteReview(review.id).subscribe(
+      data => {
+        this.reviewList.splice(this.reviewList.indexOf(review), 1);
+        this.toastr.success('Se ha eliminado la valoración');
+      },
+      err => {
+        this.toastr.error('Ha ocurrido un error al eliminar la valoración');
       }
     );
   }

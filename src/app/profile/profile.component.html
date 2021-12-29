@@ -114,6 +114,31 @@
         </div>
         <div class="reviews">
             <h3><strong>Reseñas</strong></h3>
+            <div id="review-list-scrollable" class="scrollable" (scroll)="scrollReviewsOnBottom()">
+                <div class="review" *ngFor="let review of reviewList">
+                    <mat-card class="review-card">
+                        <mat-card-header>
+                            <img class="review-img" mat-card-image src="{{review.mediaContent.poster}}" alt="review.mediaContent.title">
+                            <div class="review-title">
+                                <mat-card-title>{{review.mediaContent.title}} {{review.mediaContent.creationDate}}</mat-card-title>
+                                <mat-card-subtitle>({{review.mediaContent.mediaType}})</mat-card-subtitle>
+                            </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>{{review.content}}</p>
+                          <p style="font-style: italic;">{{review.createdAt}}</p>
+                        <div class="review-rating">
+                            <img src="/assets/ratings/{{review.rating}}stars.png">
+                        </div>
+                        <div class="review-buttons">
+                            <button mat-icon-button (click)="deleteReview(review)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </div>
+                        </mat-card-content>
+                      </mat-card>
+                </div>
+            </div>
         </div>
     </mat-card>
 </div>

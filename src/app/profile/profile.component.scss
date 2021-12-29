@@ -204,3 +204,40 @@
     margin-top: 2%;
     margin-bottom: 4%;
 }
+
+.review-img {
+    border-radius: 5%;
+    width: 5%;
+    min-width: 50px;
+    float: left;
+}
+
+.review-title {
+    float: left;
+    margin-left: 5%;
+}
+
+.review-card > mat-card-content {
+    margin-left: 10%;
+}
+
+.review-buttons {
+    text-align: end;
+}
+
+.review-rating{
+    margin-left: 0%;
+}
+
+.review-rating {
+    width: 20%;
+  }
+
+.review-rating > img{
+    width: 50%;
+    min-width: 15px;
+}
+
+.review-card {
+    margin-top: 1%;
+}

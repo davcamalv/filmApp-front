@@ -6,3 +6,10 @@ export interface MediaContent {
   mediaType?: string;
   poster?: string;
 }
+
+export interface MediaContentReviewDTO {
+  title: string;
+  creationDate?: string;
+  mediaType?: string;
+  poster?: string;
+}

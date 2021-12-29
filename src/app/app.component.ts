@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { HostListener, Component, ElementRef, HostBinding, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TokenService } from './services/token.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './auth/login.component';
@@ -19,7 +19,11 @@ isLogged = false;
 isAdmin = false;
 toggleControl = new FormControl(false);
 @HostBinding('class') className = '';
-
+@HostListener('window:beforeunload', ['$event'])
+beforeunloadHandler() {
+    localStorage.clear();
+}
+  
 constructor(private tokenService: TokenService, private dialog: MatDialog, 
   private router: Router, private overlay: OverlayContainer, private _renderer: Renderer2, private _elementRef : ElementRef
 
@@ -53,7 +57,7 @@ openLogin(): void {
       width: '300px',
     });
     dialog.afterClosed().subscribe(()=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/profile']);
       this.ngOnInit();
     });
   };
@@ -65,7 +69,7 @@ openRegister(): void {
       width: '300px',
     });
     dialog.afterClosed().subscribe(()=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/profile']);
       this.ngOnInit();
     });
   };

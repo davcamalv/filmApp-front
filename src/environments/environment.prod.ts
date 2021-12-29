@@ -5,5 +5,6 @@ export const environment = {
   messageURL: 'https://filmapp-api.herokuapp.com/api/message/',
   mediaContentURL: 'https://filmapp-api.herokuapp.com/api/mediaContent/',
   userURL: 'https://filmapp-api.herokuapp.com/api/user/',
-  genreURL: 'https://filmapp-api.herokuapp.com/api/genre/'
+  genreURL: 'https://filmapp-api.herokuapp.com/api/genre/',
+  reviewURL: 'https://filmapp-api.herokuapp.com/api/review/'
 };

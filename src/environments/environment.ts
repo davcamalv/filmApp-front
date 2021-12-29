@@ -9,8 +9,8 @@ export const environment = {
   messageURL: 'http://localhost:8080/api/message/',
   mediaContentURL: 'http://localhost:8080/api/mediaContent/',
   userURL: 'http://localhost:8080/api/user/',
-  genreURL: 'http://localhost:8080/api/genre/'
-
+  genreURL: 'http://localhost:8080/api/genre/',
+  reviewURL: 'http://localhost:8080/api/review/'
 };
 
 /*ng serve
