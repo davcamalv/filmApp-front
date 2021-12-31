@@ -2,7 +2,10 @@
     <mat-card-content id="chat-content" class="chat-content" (scroll)="scrollOnTop()">
         <div *ngFor="let message of conversation">
             <div class="message">
-                <mat-card class="server-message" *ngIf="message.sender == 'server'">
+                <mat-card class="server-message" *ngIf="message.sender == 'server' && message.fullWidth !== true">
+                    <div [innerHtml]="message.message | safeHtml:'html'"></div>
+                </mat-card>
+                <mat-card class="server-message fullWidth" *ngIf="message.sender == 'server' && message.fullWidth === true">
                     <div [innerHtml]="message.message | safeHtml:'html'"></div>
                 </mat-card>
                 <mat-card class="user-message" *ngIf="message.sender == 'user'">

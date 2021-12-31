@@ -41,7 +41,10 @@ mat-icon:hover {
     max-width: 70%;
     margin: 5px;
     margin-left: 10px;
+}
 
+.fullWidth {
+  width: 70%;
 }
 
 .option-img {
@@ -151,4 +154,36 @@ mat-icon:hover {
     display:flex;
     flex-wrap: wrap;
     width: 100%; 
+  }
+
+  .review-avatar {
+    border-radius: 50%;
+    width: 5%;
+    min-width: 50px;
+    float: left;
+  }
+
+  .review {
+    margin-top: 2%;
+    margin-bottom: 3%;
+    width: 100%;
+  }
+
+  .review > h1 {
+    margin-left: 7%;
+  }
+
+  .review > p {
+    margin-left: 10%;
+    margin-top: 1%;
+  }
+
+  .review-rating {
+    display: flex;
+    width: 20%;
+    margin-left: 10%;
+  }
+
+  .review-rating > img{
+    width: 50%;
   }

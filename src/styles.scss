@@ -72,6 +72,10 @@
       color: mat-contrast($accent, 900)!important;
     }
 
+    .review-card {
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
+    }
     
     .collapsible {
       background-color: mat-color($primary, 800)!important;
@@ -140,6 +144,11 @@
     .server-message{
       background-color: mat-color($accent, 100)!important;
       color: mat-contrast($accent, 100)!important;
+    }
+    
+    .review-card {
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
     }
 
     .collapsible {
