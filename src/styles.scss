@@ -2,6 +2,7 @@
 
 @include mat.core();
 @import '~@angular/material/theming';
+@import '~ngx-toastr/toastr.css';
 
 @mixin theme-color-grabber($theme) {
   $primary: map-get($theme, primary);
@@ -11,6 +12,10 @@
   .warnColorBG {
     background-color: mat-color($warn);
     color: mat-contrast($warn, 500);
+  }
+
+  .avatar-selected {
+    outline: 2px solid mat-color($accent) !important;
   }
 
   ::-webkit-scrollbar {
@@ -29,12 +34,26 @@
     background: mat-color($accent);
   }
 
+  .toast-error {
+    background-color: mat-color($warn)!important;
+  }
+
+  .toast-warning {
+    background-color: mat-color($accent)!important;
+  }
+
   @if $theme == $dark-theme{
 
     .primaryColorBG {
       background-color: mat-color($primary);
       color: mat-contrast($primary, 300);
   
+    }
+
+    .toast-success {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
+
     }
 
     .accentColorBG {
@@ -51,6 +70,56 @@
     .server-message{
       background-color: mat-color($accent, 900)!important;
       color: mat-contrast($accent, 900)!important;
+    }
+
+    .review-card {
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
+    }
+    
+    .collapsible {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+      background-color: mat-color($primary, 900)!important;  }
+    
+    .collapsible:after {
+      content: '\002B';
+      color: mat-contrast($primary, 900)!important;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .collapsible-content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: mat-color($accent, 800)!important;
+      color: mat-contrast($accent, 800)!important;
+    }
+
+    .content-mapping:hover {
+      background-color: mat-color($primary, 900)!important;  
+    }
+    
+    .content-mapping {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
     }
   }
   @else{
@@ -76,8 +145,58 @@
       background-color: mat-color($accent, 100)!important;
       color: mat-contrast($accent, 100)!important;
     }
-  }
+    
+    .review-card {
+      background-color: mat-color($primary, 50)!important;
+      color: mat-contrast($primary, 50)!important;
+    }
 
+    .collapsible {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+      background-color: mat-color($primary, 900)!important;  
+    }
+    
+    .collapsible:after {
+      content: '\002B';
+      color: mat-contrast($primary, 800)!important;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .collapsible-content {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: mat-color($accent, 200)!important;
+    }
+
+    .content-mapping:hover {
+      background-color: mat-color($primary, 900)!important;  
+    }
+    .content-mapping {
+      background-color: mat-color($primary, 800)!important;
+      color: mat-contrast($primary, 800)!important;
+    }
+
+  }
+  
 }
 
 html, body { 

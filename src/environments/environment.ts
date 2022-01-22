@@ -6,8 +6,11 @@ export const environment = {
   production: false,
   authURL: 'http://localhost:8080/api/auth/',
   conversationURL: 'http://localhost:8080/api/conversation/',
-  messageURL: 'http://localhost:8080/api/message/'
-
+  messageURL: 'http://localhost:8080/api/message/',
+  mediaContentURL: 'http://localhost:8080/api/mediaContent/',
+  userURL: 'http://localhost:8080/api/user/',
+  genreURL: 'http://localhost:8080/api/genre/',
+  reviewURL: 'http://localhost:8080/api/review/'
 };
 
 /*ng serve

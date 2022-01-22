@@ -1,0 +1,144 @@
+<div class="profile">
+    <mat-card class="left-profile">
+        <mat-card-header class="avatar">
+            <div class="avatar-img">
+                <img class="image" [src]="avatar">
+                <div class="overlay-avatar-img">
+                    <button mat-icon-button (click)="openAvatarDialog()">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <h1>{{username}}</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="details">
+                <div class="left-profile-section">
+                    <h3><strong>Detalles</strong></h3>
+                    <button mat-icon-button *ngIf="!detailsButton" (click)="detailsButton = !detailsButton">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                </div>
+                <div *ngIf="!detailsButton">
+                    <p>{{email}}</p>
+                    <p>{{name}}</p>
+                    <p>{{birthDate}}</p>
+                </div>
+                <div *ngIf="detailsButton">
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput [formControl]="nameFormControl"/>
+                            <mat-error *ngIf="nameFormControl.invalid">{{ getErrorMessageName() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                          <mat-label>Email</mat-label>
+                          <input matInput [formControl]="emailFormControl"/>
+                          <mat-error *ngIf="emailFormControl.invalid">{{ getErrorMessageEmail() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field style="width: 100%;">
+                          <mat-label>Fecha de nacimiento</mat-label>
+                          <input matInput [matDatepicker]="picker" [formControl]="birthDateFormControl">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error *ngIf="birthDateFormControl.invalid">{{ getErrorMessageBirthDate() }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <button id="cancel-details" mat-raised-button color="warn" (click)="detailsButton = !detailsButton">
+                        Cancelar
+                    </button>
+                    <button id="save-details" mat-raised-button color="primary" [disabled]="abledDetailsSaveButton()" (click)="saveDetails()">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="left-profile-section">
+                <h3><strong>Géneros preferidos</strong></h3>
+                <button mat-icon-button *ngIf="!genreButton" (click)="getDefaultGenresSelected()">
+                    <mat-icon>create</mat-icon>
+                </button>
+            </div>
+            <div class="content-mapping-list" *ngIf="!genreButton">
+                <div class="content-mapping" *ngFor="let genre of genres">
+                    <p>{{genre.name}}</p>
+                </div>
+            </div>
+            <div class="genre-edit" *ngIf="genreButton">
+                <mat-form-field appearance="fill" id="add-genre-select">
+                    <mat-label>Géneros</mat-label>
+                    <mat-select [(ngModel)]="selectedGenres" multiple>
+                      <mat-option *ngFor="let genre of fullGenreList" [value]="genre.id">{{genre.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button id="cancel-genre" mat-raised-button color="warn" (click)="getDefaultGenresSelected()">
+                    Cancelar
+                  </button>
+                  <button id="save-genre" mat-raised-button color="primary" (click)="saveGenres()">
+                    Guardar
+                  </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="right-profile">
+        <div class="to-watch-list">
+            <h3><strong>Mi lista</strong></h3>
+            <div id="to-watch-list-scrollable" class="scrollable" (scroll)="scrollMediaContentOnBottom()">
+                <div class="to-watch-img" *ngFor="let mediaContent of watchList">
+                    <img class="image" *ngIf="mediaContent.poster != undefined" [src]="mediaContent.poster">
+                    <img class="image" *ngIf="mediaContent.poster == undefined" src="/assets/defaults/mediaContent.jpg">
+                    <div class="overlay-img">
+                        <h2>{{mediaContent.title}}</h2>
+                        <h4>Año:&nbsp;</h4>
+                        <p *ngIf="mediaContent.creationDate != undefined">{{mediaContent.creationDate}}</p>
+                        <p *ngIf="mediaContent.creationDate == undefined">-</p>
+                        <h4>Puntuación:&nbsp;</h4>
+                        <p *ngIf="mediaContent.score != undefined">{{mediaContent.score}}</p>
+                        <p *ngIf="mediaContent.score == undefined">-</p>
+                        <h4>Tipo:&nbsp;</h4>
+                        <p>{{mediaContent.mediaType}}</p>
+                    </div>
+                    <div class="overlay-img-button">
+                        <button mat-icon-button (click)="deleteElementMediaContentList(mediaContent)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reviews">
+            <h3><strong>Reseñas</strong></h3>
+            <div id="review-list-scrollable" class="scrollable" (scroll)="scrollReviewsOnBottom()">
+                <div class="review" *ngFor="let review of reviewList">
+                    <mat-card class="review-card">
+                        <mat-card-header>
+                            <img class="review-img" mat-card-image src="{{review.mediaContent.poster}}" alt="review.mediaContent.title">
+                            <div class="review-title">
+                                <mat-card-title>{{review.mediaContent.title}} {{review.mediaContent.creationDate}}</mat-card-title>
+                                <mat-card-subtitle>({{review.mediaContent.mediaType}})</mat-card-subtitle>
+                            </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>{{review.content}}</p>
+                          <p style="font-style: italic;">{{review.createdAt}}</p>
+                        <div class="review-rating">
+                            <img src="/assets/ratings/{{review.rating}}stars.png">
+                        </div>
+                        <div class="review-buttons">
+                            <button mat-icon-button (click)="deleteReview(review)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </div>
+                        </mat-card-content>
+                      </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
